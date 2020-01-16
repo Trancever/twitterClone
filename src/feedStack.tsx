@@ -2,15 +2,29 @@ import React from 'react';
 import { TouchableOpacity } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
-import { Appbar, Avatar, DefaultTheme, useTheme } from 'react-native-paper';
+import { MaterialBottomTabNavigationProp } from '@react-navigation/material-bottom-tabs';
+import { Appbar, Avatar, useTheme } from 'react-native-paper';
 
 import { Feed } from './feed';
 import { Details } from './details';
+import { TabBarSetContext } from './context/tabBarContext';
 
 const Stack = createStackNavigator();
 
-export const FeedStack = () => {
+type Props = {
+  navigation: MaterialBottomTabNavigationProp<{}>;
+};
+
+export const FeedStack = (props: Props) => {
   const theme = useTheme();
+  const setTab = React.useContext(TabBarSetContext);
+
+  //TODO: this runs too often. Check how to fix it
+  React.useEffect(() => {
+    const onTabPress = () => setTab('Feed');
+    props.navigation.addListener('tabPress', onTabPress);
+    return () => props.navigation.removeListener('tabPress', onTabPress);
+  }, [props.navigation, setTab]);
 
   return (
     <Stack.Navigator
