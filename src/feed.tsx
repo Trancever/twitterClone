@@ -17,7 +17,7 @@ function keyExtractor(item: TwittProps) {
 }
 
 type Props = {
-  navigation: StackNavigationProp<{}>;
+  navigation?: StackNavigationProp<{}>;
 };
 
 export const Feed = (props: Props) => {
@@ -25,7 +25,8 @@ export const Feed = (props: Props) => {
 
   const data = twitts.map(twittProps => ({
     ...twittProps,
-    onPress: (id: number) => props.navigation.push('Details'),
+    // @ts-ignore
+    onPress: () => props.navigation && props.navigation.push('Details'),
   }));
 
   return (

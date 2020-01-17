@@ -1,8 +1,10 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { ScrollView, StyleSheet } from 'react-native';
 import { MaterialBottomTabNavigationProp } from '@react-navigation/material-bottom-tabs';
+import { Headline, Caption, useTheme, Button } from 'react-native-paper';
 
 import { TabBarSetContext } from './context/tabBarContext';
+import overlay from './overlay';
 
 type Props = {
   navigation: MaterialBottomTabNavigationProp<{}>;
@@ -10,6 +12,7 @@ type Props = {
 
 export const Message = (props: Props) => {
   const setTab = React.useContext(TabBarSetContext);
+  const theme = useTheme();
 
   //TODO: this runs too often. Check how to fix it
   React.useEffect(() => {
@@ -18,9 +21,43 @@ export const Message = (props: Props) => {
     return () => props.navigation.removeListener('tabPress', onTabPress);
   }, [props.navigation, setTab]);
 
+  const backgroundColor = overlay(2, theme.colors.surface) as string;
+
   return (
-    <View style={{ flex: 1 }}>
-      <Text>Message</Text>
-    </View>
+    <ScrollView
+      style={{ backgroundColor }}
+      contentContainerStyle={[styles.scrollViewContent, { backgroundColor }]}
+    >
+      <Headline style={styles.centerText}>
+        Send a message, get a message
+      </Headline>
+      <Caption style={styles.centerText}>
+        Private Messages are private conversations between you and other people
+        on Twitter. Share Tweets, media, and more!
+      </Caption>
+      <Button
+        onPress={() => {}}
+        style={styles.button}
+        mode="contained"
+        labelStyle={{ color: 'white' }}
+      >
+        Write a message
+      </Button>
+    </ScrollView>
   );
 };
+
+const styles = StyleSheet.create({
+  scrollViewContent: {
+    flex: 1,
+    paddingHorizontal: 30,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  centerText: {
+    textAlign: 'center',
+  },
+  button: {
+    marginTop: 20,
+  },
+});

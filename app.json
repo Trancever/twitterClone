@@ -13,9 +13,9 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "image": "./assets/twitter.png",
+      "resizeMode": "cover",
+      "backgroundColor": "#1ba1f2"
     },
     "updates": {
       "fallbackToCacheTimeout": 0

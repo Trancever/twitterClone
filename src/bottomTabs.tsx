@@ -2,10 +2,12 @@ import React from 'react';
 import color from 'color';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { useTheme, Portal, FAB } from 'react-native-paper';
+import { DefaultTheme, DarkTheme } from '@react-navigation/native';
+import { useSafeArea } from 'react-native-safe-area-context';
 
 import overlay from './overlay';
 import { FeedStack } from './feedStack';
-import { Message } from './message';
+import { MessageStack } from './messageStack';
 import { Notifications } from './notifications';
 import { TabBarContext } from './context/tabBarContext';
 
@@ -14,6 +16,9 @@ const Tab = createMaterialBottomTabNavigator();
 export const BottomTabs = () => {
   const theme = useTheme();
   const tab = React.useContext(TabBarContext);
+  const safeArea = useSafeArea();
+
+  const navigationTheme = theme.dark ? DarkTheme : DefaultTheme;
 
   let icon = 'feather';
 
@@ -41,6 +46,7 @@ export const BottomTabs = () => {
           .alpha(0.6)
           .rgb()
           .string()}
+        theme={navigationTheme}
       >
         <Tab.Screen
           name="Feed"
@@ -59,8 +65,8 @@ export const BottomTabs = () => {
           }}
         />
         <Tab.Screen
-          name="Message"
-          component={Message}
+          name="Messages"
+          component={MessageStack}
           options={{
             tabBarIcon: 'message-text-outline',
             tabBarColor,
@@ -70,7 +76,11 @@ export const BottomTabs = () => {
       <Portal>
         <FAB
           icon={icon}
-          style={{ position: 'absolute', bottom: 100, right: 16 }}
+          style={{
+            position: 'absolute',
+            bottom: safeArea.bottom + 65,
+            right: 16,
+          }}
           color="white"
           theme={{
             colors: {

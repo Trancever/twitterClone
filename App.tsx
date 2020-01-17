@@ -7,6 +7,7 @@ import {
   DarkTheme,
 } from 'react-native-paper';
 import { NavigationNativeContainer } from '@react-navigation/native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { RootNavigator } from './src/rootNavigator';
 import { PreferencesContext } from './src/context/preferencesContext';
@@ -25,36 +26,46 @@ export default function App() {
     setTheme(theme => (theme === 'light' ? 'dark' : 'light'));
   }
 
-  function toggleRTL() {
+  const toggleRTL = React.useCallback(() => {
     I18nManager.forceRTL(!rtl);
     Updates.reloadFromCache();
-  }
+  }, [rtl]);
+
+  const preferences = React.useMemo(
+    () => ({
+      toggleTheme,
+      toggleRTL,
+      theme,
+      rtl: (rtl ? 'right' : 'left') as 'right' | 'left',
+    }),
+    [rtl, theme, toggleRTL]
+  );
 
   return (
-    <PreferencesContext.Provider
-      value={{ toggleTheme, toggleRTL, theme, rtl: rtl ? 'right' : 'left' }}
-    >
-      <TabBarContext.Provider value={tab}>
-        <TabBarSetContext.Provider value={setTab}>
-          <PaperProvider
-            theme={
-              theme === 'light'
-                ? {
-                    ...DefaultTheme,
-                    colors: { ...DefaultTheme.colors, primary: '#1ba1f2' },
-                  }
-                : {
-                    ...DarkTheme,
-                    colors: { ...DarkTheme.colors, primary: '#1ba1f2' },
-                  }
-            }
-          >
-            <NavigationNativeContainer>
-              <RootNavigator />
-            </NavigationNativeContainer>
-          </PaperProvider>
-        </TabBarSetContext.Provider>
-      </TabBarContext.Provider>
-    </PreferencesContext.Provider>
+    <SafeAreaProvider>
+      <PreferencesContext.Provider value={preferences}>
+        <TabBarContext.Provider value={tab}>
+          <TabBarSetContext.Provider value={setTab}>
+            <PaperProvider
+              theme={
+                theme === 'light'
+                  ? {
+                      ...DefaultTheme,
+                      colors: { ...DefaultTheme.colors, primary: '#1ba1f2' },
+                    }
+                  : {
+                      ...DarkTheme,
+                      colors: { ...DarkTheme.colors, primary: '#1ba1f2' },
+                    }
+              }
+            >
+              <NavigationNativeContainer>
+                <RootNavigator />
+              </NavigationNativeContainer>
+            </PaperProvider>
+          </TabBarSetContext.Provider>
+        </TabBarContext.Provider>
+      </PreferencesContext.Provider>
+    </SafeAreaProvider>
   );
 }
