@@ -47,6 +47,7 @@ export const BottomTabs = () => {
           .rgb()
           .string()}
         theme={navigationTheme}
+        sceneAnimationEnabled={false}
       >
         <Tab.Screen
           name="Feed"
