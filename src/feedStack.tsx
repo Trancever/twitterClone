@@ -4,6 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { MaterialBottomTabNavigationProp } from '@react-navigation/material-bottom-tabs';
 import { Appbar, Avatar, useTheme } from 'react-native-paper';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import { Feed } from './feed';
 import { Details } from './details';
@@ -62,7 +63,19 @@ export const FeedStack = (props: Props) => {
                   />
                 </TouchableOpacity>
               )}
-              <Appbar.Content title={title} color={theme.colors.primary} />
+              <Appbar.Content
+                title={title}
+                // color={theme.colors.primary}
+                titleStyle={{ fontWeight: 'bold', fontSize: 20 }}
+              />
+              {previous ? null : (
+                <MaterialCommunityIcons
+                  style={{ marginRight: 10 }}
+                  name="twitter"
+                  size={30}
+                  color={theme.colors.primary}
+                />
+              )}
             </Appbar.Header>
           );
         },
@@ -73,7 +86,11 @@ export const FeedStack = (props: Props) => {
         component={Feed}
         options={{ headerTitle: 'Twitter' }}
       />
-      <Stack.Screen name="Details" component={Details} />
+      <Stack.Screen
+        name="Details"
+        component={Details}
+        options={{ headerTitle: 'Tweet' }}
+      />
     </Stack.Navigator>
   );
 };
