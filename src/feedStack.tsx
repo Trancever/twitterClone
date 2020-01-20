@@ -64,18 +64,20 @@ export const FeedStack = (props: Props) => {
                 </TouchableOpacity>
               )}
               <Appbar.Content
-                title={title}
-                // color={theme.colors.primary}
-                titleStyle={{ fontWeight: 'bold', fontSize: 20 }}
+                title={
+                  previous ? (
+                    title
+                  ) : (
+                    <MaterialCommunityIcons
+                      style={{ marginRight: 10 }}
+                      name="twitter"
+                      size={40}
+                      color={theme.colors.primary}
+                    />
+                  )
+                }
+                titleStyle={{ fontSize: 18, fontWeight: 'bold' }}
               />
-              {previous ? null : (
-                <MaterialCommunityIcons
-                  style={{ marginRight: 10 }}
-                  name="twitter"
-                  size={30}
-                  color={theme.colors.primary}
-                />
-              )}
             </Appbar.Header>
           );
         },
