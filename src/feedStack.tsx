@@ -9,8 +9,9 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Feed } from './feed';
 import { Details } from './details';
 import { TabBarSetContext } from './context/tabBarContext';
+import { StackNavigatorParamlist } from './types';
 
-const Stack = createStackNavigator();
+const Stack = createStackNavigator<StackNavigatorParamlist>();
 
 type Props = {
   navigation: MaterialBottomTabNavigationProp<{}>;
@@ -46,7 +47,10 @@ export const FeedStack = (props: Props) => {
               theme={{ colors: { primary: theme.colors.surface } }}
             >
               {previous ? (
-                <Appbar.BackAction onPress={navigation.goBack} />
+                <Appbar.BackAction
+                  onPress={navigation.goBack}
+                  color={theme.colors.primary}
+                />
               ) : (
                 <TouchableOpacity
                   style={{ marginLeft: 10 }}

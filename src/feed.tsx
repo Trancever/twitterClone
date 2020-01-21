@@ -5,6 +5,7 @@ import { useTheme } from 'react-native-paper';
 
 import { Twitt } from './components/twitt';
 import { twitts } from './data';
+import { StackNavigatorParamlist } from './types';
 
 type TwittProps = React.ComponentProps<typeof Twitt>;
 
@@ -17,7 +18,7 @@ function keyExtractor(item: TwittProps) {
 }
 
 type Props = {
-  navigation?: StackNavigationProp<{}>;
+  navigation?: StackNavigationProp<StackNavigatorParamlist>;
 };
 
 export const Feed = (props: Props) => {
@@ -25,8 +26,11 @@ export const Feed = (props: Props) => {
 
   const data = twitts.map(twittProps => ({
     ...twittProps,
-    // @ts-ignore
-    onPress: () => props.navigation && props.navigation.push('Details'),
+    onPress: () =>
+      props.navigation &&
+      props.navigation.push('Details', {
+        ...twittProps,
+      }),
   }));
 
   return (

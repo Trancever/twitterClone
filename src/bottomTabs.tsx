@@ -2,7 +2,6 @@ import React from 'react';
 import color from 'color';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { useTheme, Portal, FAB } from 'react-native-paper';
-import { DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { useSafeArea } from 'react-native-safe-area-context';
 
 import overlay from './overlay';
@@ -17,8 +16,6 @@ export const BottomTabs = () => {
   const theme = useTheme();
   const tab = React.useContext(TabBarContext);
   const safeArea = useSafeArea();
-
-  const navigationTheme = theme.dark ? DarkTheme : DefaultTheme;
 
   let icon = 'feather';
 
@@ -46,7 +43,6 @@ export const BottomTabs = () => {
           .alpha(0.6)
           .rgb()
           .string()}
-        theme={navigationTheme}
         sceneAnimationEnabled={false}
       >
         <Tab.Screen

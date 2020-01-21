@@ -6,7 +6,6 @@ import {
 } from 'react-native-paper';
 import { I18nManager } from 'react-native';
 import { Updates } from 'expo';
-import { NavigationNativeContainer } from '@react-navigation/native';
 import { useColorScheme } from 'react-native-appearance';
 
 import { RootNavigator } from './rootNavigator';
@@ -57,9 +56,7 @@ export const Main = () => {
                   }
             }
           >
-            <NavigationNativeContainer>
-              <RootNavigator />
-            </NavigationNativeContainer>
+            <RootNavigator />
           </PaperProvider>
         </TabBarSetContext.Provider>
       </TabBarContext.Provider>

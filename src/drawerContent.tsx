@@ -1,7 +1,13 @@
 import React from 'react';
-import { View, StyleSheet, Platform } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import {
-  withTheme,
+  DrawerItem,
+  DrawerContentScrollView,
+  DrawerContentComponentProps,
+  DrawerContentOptions,
+} from '@react-navigation/drawer';
+import {
+  useTheme,
   Avatar,
   Title,
   Caption,
@@ -11,85 +17,118 @@ import {
   TouchableRipple,
   Switch,
 } from 'react-native-paper';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import Animated from 'react-native-reanimated';
 
 import { PreferencesContext } from './context/preferencesContext';
 
-export const DrawerContent = withTheme(props => {
+type Props = DrawerContentComponentProps<DrawerContentOptions>;
+
+export function DrawerContent(props: Props) {
+  const paperTheme = useTheme();
   const { rtl, theme, toggleRTL, toggleTheme } = React.useContext(
     PreferencesContext
   );
 
+  const translateX = Animated.interpolate(props.progress, {
+    inputRange: [0, 0.5, 0.7, 0.8, 1],
+    outputRange: [-100, -85, -70, -45, 0],
+  });
+
   return (
-    <View
-      style={[
-        styles.drawerContent,
-        { backgroundColor: props.theme.colors.surface },
-      ]}
-    >
-      <View style={styles.userInfoSection}>
-        <Avatar.Image
-          source={{
-            uri:
-              'https://pbs.twimg.com/profile_images/952545910990495744/b59hSXUd_400x400.jpg',
-          }}
-          size={50}
-        />
-        <Title style={styles.title}>Dawid Urbaniak</Title>
-        <Caption style={styles.caption}>@trensik</Caption>
-        <View style={styles.row}>
-          <View style={styles.section}>
-            <Paragraph style={[styles.paragraph, styles.caption]}>
-              202
-            </Paragraph>
-            <Caption style={styles.caption}>Obserwuje</Caption>
-          </View>
-          <View style={styles.section}>
-            <Paragraph style={[styles.paragraph, styles.caption]}>
-              159
-            </Paragraph>
-            <Caption style={styles.caption}>Obserwujący</Caption>
+    <DrawerContentScrollView {...props}>
+      <Animated.View
+        //@ts-ignore
+        style={[
+          styles.drawerContent,
+          {
+            backgroundColor: paperTheme.colors.surface,
+            transform: [{ translateX }],
+          },
+        ]}
+      >
+        <View style={styles.userInfoSection}>
+          <Avatar.Image
+            source={{
+              uri:
+                'https://pbs.twimg.com/profile_images/952545910990495744/b59hSXUd_400x400.jpg',
+            }}
+            size={50}
+          />
+          <Title style={styles.title}>Dawid Urbaniak</Title>
+          <Caption style={styles.caption}>@trensik</Caption>
+          <View style={styles.row}>
+            <View style={styles.section}>
+              <Paragraph style={[styles.paragraph, styles.caption]}>
+                202
+              </Paragraph>
+              <Caption style={styles.caption}>Obserwuje</Caption>
+            </View>
+            <View style={styles.section}>
+              <Paragraph style={[styles.paragraph, styles.caption]}>
+                159
+              </Paragraph>
+              <Caption style={styles.caption}>Obserwujący</Caption>
+            </View>
           </View>
         </View>
-      </View>
-      <Drawer.Section style={styles.drawerSection}>
-        <Drawer.Item
-          icon="account-outline"
-          label="Profile"
-          onPress={() => {}}
-        />
-        <Drawer.Item icon="tune" label="Preferences" onPress={() => {}} />
-        <Drawer.Item
-          icon="bookmark-outline"
-          label="Bookmarks"
-          onPress={() => {}}
-        />
-      </Drawer.Section>
-      <Drawer.Section title="Preferences">
-        <TouchableRipple onPress={toggleTheme}>
-          <View style={styles.preference}>
-            <Text>Dark Theme</Text>
-            <View pointerEvents="none">
-              <Switch value={theme === 'dark'} />
+        <Drawer.Section style={styles.drawerSection}>
+          <DrawerItem
+            icon={({ color, size }) => (
+              <MaterialCommunityIcons
+                name="account-outline"
+                color={color}
+                size={size}
+              />
+            )}
+            label="Profile"
+            onPress={() => {}}
+          />
+          <DrawerItem
+            icon={({ color, size }) => (
+              <MaterialCommunityIcons name="tune" color={color} size={size} />
+            )}
+            label="Preferences"
+            onPress={() => {}}
+          />
+          <DrawerItem
+            icon={({ color, size }) => (
+              <MaterialCommunityIcons
+                name="bookmark-outline"
+                color={color}
+                size={size}
+              />
+            )}
+            label="Bookmarks"
+            onPress={() => {}}
+          />
+        </Drawer.Section>
+        <Drawer.Section title="Preferences">
+          <TouchableRipple onPress={toggleTheme}>
+            <View style={styles.preference}>
+              <Text>Dark Theme</Text>
+              <View pointerEvents="none">
+                <Switch value={theme === 'dark'} />
+              </View>
             </View>
-          </View>
-        </TouchableRipple>
-        <TouchableRipple onPress={toggleRTL}>
-          <View style={styles.preference}>
-            <Text>RTL</Text>
-            <View pointerEvents="none">
-              <Switch value={rtl === 'right'} />
+          </TouchableRipple>
+          <TouchableRipple onPress={toggleRTL}>
+            <View style={styles.preference}>
+              <Text>RTL</Text>
+              <View pointerEvents="none">
+                <Switch value={rtl === 'right'} />
+              </View>
             </View>
-          </View>
-        </TouchableRipple>
-      </Drawer.Section>
-    </View>
+          </TouchableRipple>
+        </Drawer.Section>
+      </Animated.View>
+    </DrawerContentScrollView>
   );
-});
+}
 
 const styles = StyleSheet.create({
   drawerContent: {
     flex: 1,
-    paddingTop: Platform.OS === 'android' ? 50 : 47,
   },
   userInfoSection: {
     paddingLeft: 20,

@@ -1,10 +1,13 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { RouteProp } from '@react-navigation/native';
 
-export const Details = () => {
-  return (
-    <View style={{ flex: 1 }}>
-      <Text>Details</Text>
-    </View>
-  );
+import { DetailedTwitt } from './components/detailedTwitt';
+import { StackNavigatorParamlist } from './types';
+
+type Props = {
+  route: RouteProp<StackNavigatorParamlist, 'Details'>;
+};
+
+export const Details = (props: Props) => {
+  return <DetailedTwitt {...props.route.params} />;
 };
