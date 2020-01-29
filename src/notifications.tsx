@@ -1,9 +1,8 @@
 import React from 'react';
 import color from 'color';
-import { Dimensions, TouchableOpacity } from 'react-native';
+import { Dimensions } from 'react-native';
 import { MaterialBottomTabNavigationProp } from '@react-navigation/material-bottom-tabs';
-import { DrawerNavigationProp } from '@react-navigation/drawer';
-import { useTheme, Appbar, Avatar } from 'react-native-paper';
+import { useTheme } from 'react-native-paper';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 
 import overlay from './overlay';
@@ -63,23 +62,6 @@ export const Notifications = (props: Props) => {
 
   return (
     <React.Fragment>
-      <Appbar.Header style={{ elevation: 0, backgroundColor: tabBarColor }}>
-        <TouchableOpacity
-          style={{ marginLeft: 10 }}
-          onPress={() => {
-            ((props.navigation as any) as DrawerNavigationProp<{}>).openDrawer();
-          }}
-        >
-          <Avatar.Image
-            size={40}
-            source={{
-              uri:
-                'https://pbs.twimg.com/profile_images/952545910990495744/b59hSXUd_400x400.jpg',
-            }}
-          />
-        </TouchableOpacity>
-        <Appbar.Content title="Notifications" color={theme.colors.primary} />
-      </Appbar.Header>
       <TabView
         navigationState={{ index, routes }}
         renderScene={renderScene}

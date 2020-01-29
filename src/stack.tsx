@@ -2,46 +2,25 @@ import React from 'react';
 import { TouchableOpacity } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
-import { MaterialBottomTabNavigationProp } from '@react-navigation/material-bottom-tabs';
 import { Appbar, Avatar, useTheme } from 'react-native-paper';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-import { Feed } from './feed';
+import { BottomTabs } from './bottomTabs';
+// import { Feed } from './feed';
 import { Details } from './details';
-import { TabBarSetContext } from './context/tabBarContext';
 import { StackNavigatorParamlist } from './types';
 
 const Stack = createStackNavigator<StackNavigatorParamlist>();
 
-type Props = {
-  navigation: MaterialBottomTabNavigationProp<{}>;
-};
-
-export const FeedStack = (props: Props) => {
+export const StackNavigator = () => {
   const theme = useTheme();
-  const setTab = React.useContext(TabBarSetContext);
-
-  //TODO: this runs too often. Check how to fix it
-  React.useEffect(() => {
-    const onTabPress = () => setTab('Feed');
-    props.navigation.addListener('tabPress', onTabPress);
-    return () => props.navigation.removeListener('tabPress', onTabPress);
-  }, [props.navigation, setTab]);
 
   return (
     <Stack.Navigator
       initialRouteName="FeedList"
       headerMode="screen"
       screenOptions={{
-        header: ({ scene, previous, navigation }) => {
-          const { options } = scene.descriptor;
-          const title =
-            options.headerTitle !== undefined
-              ? options.headerTitle
-              : options.title !== undefined
-              ? options.title
-              : scene.route.name;
-
+        header: ({ previous, navigation }) => {
           return (
             <Appbar.Header
               theme={{ colors: { primary: theme.colors.surface } }}
@@ -69,16 +48,12 @@ export const FeedStack = (props: Props) => {
               )}
               <Appbar.Content
                 title={
-                  previous ? (
-                    title
-                  ) : (
-                    <MaterialCommunityIcons
-                      style={{ marginRight: 10 }}
-                      name="twitter"
-                      size={40}
-                      color={theme.colors.primary}
-                    />
-                  )
+                  <MaterialCommunityIcons
+                    style={{ marginRight: 10 }}
+                    name="twitter"
+                    size={40}
+                    color={theme.colors.primary}
+                  />
                 }
                 titleStyle={{ fontSize: 18, fontWeight: 'bold' }}
               />
@@ -89,7 +64,7 @@ export const FeedStack = (props: Props) => {
     >
       <Stack.Screen
         name="FeedList"
-        component={Feed}
+        component={BottomTabs}
         options={{ headerTitle: 'Twitter' }}
       />
       <Stack.Screen
