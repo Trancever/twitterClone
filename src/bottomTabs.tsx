@@ -3,27 +3,33 @@ import color from 'color';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { useTheme, Portal, FAB } from 'react-native-paper';
 import { useSafeArea } from 'react-native-safe-area-context';
-import { useIsFocused } from '@react-navigation/native';
+import { useIsFocused, RouteProp } from '@react-navigation/native';
 
 import overlay from './overlay';
 import { Feed } from './feed';
 import { Message } from './message';
 import { Notifications } from './notifications';
-import { TabBarContext } from './context/tabBarContext';
+import { StackNavigatorParamlist } from './types';
 
 const Tab = createMaterialBottomTabNavigator();
 
-export const BottomTabs = () => {
+type Props = {
+  route: RouteProp<StackNavigatorParamlist, 'FeedList'>;
+};
+
+export const BottomTabs = (props: Props) => {
+  const routeName = props.route.state
+    ? props.route.state.routes[props.route.state.index].name
+    : 'Feed';
+
   const theme = useTheme();
   const safeArea = useSafeArea();
   const isFocused = useIsFocused();
 
-  const tab = React.useContext(TabBarContext);
-
   let icon = 'feather';
 
-  switch (tab) {
-    case 'Message':
+  switch (routeName) {
+    case 'Messages':
       icon = 'email-plus-outline';
       break;
     default:

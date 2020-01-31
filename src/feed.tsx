@@ -6,7 +6,6 @@ import { useTheme } from 'react-native-paper';
 import { Twitt } from './components/twitt';
 import { twitts } from './data';
 import { StackNavigatorParamlist } from './types';
-import { TabBarSetContext } from './context/tabBarContext';
 
 type TwittProps = React.ComponentProps<typeof Twitt>;
 
@@ -24,15 +23,6 @@ type Props = {
 
 export const Feed = (props: Props) => {
   const theme = useTheme();
-  const setTab = React.useContext(TabBarSetContext);
-
-  //TODO: this runs too often. Check how to fix it
-  React.useEffect(() => {
-    if (!props.navigation) return;
-    const onTabPress = () => setTab('Feed');
-    props.navigation.addListener('tabPress', onTabPress);
-    return () => props.navigation.removeListener('tabPress', onTabPress);
-  }, [props.navigation, setTab]);
 
   const data = twitts.map(twittProps => ({
     ...twittProps,

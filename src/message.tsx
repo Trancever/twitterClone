@@ -3,23 +3,14 @@ import { ScrollView, StyleSheet } from 'react-native';
 import { MaterialBottomTabNavigationProp } from '@react-navigation/material-bottom-tabs';
 import { Headline, Caption, useTheme, Button } from 'react-native-paper';
 
-import { TabBarSetContext } from './context/tabBarContext';
 import overlay from './overlay';
 
 type Props = {
   navigation: MaterialBottomTabNavigationProp<{}>;
 };
 
-export const Message = (props: Props) => {
-  const setTab = React.useContext(TabBarSetContext);
+export const Message = () => {
   const theme = useTheme();
-
-  //TODO: this runs too often. Check how to fix it
-  React.useEffect(() => {
-    const onTabPress = () => setTab('Message');
-    props.navigation.addListener('tabPress', onTabPress);
-    return () => props.navigation.removeListener('tabPress', onTabPress);
-  }, [props.navigation, setTab]);
 
   const backgroundColor = overlay(2, theme.colors.surface) as string;
 

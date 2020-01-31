@@ -1,18 +1,12 @@
 import React from 'react';
 import color from 'color';
 import { Dimensions } from 'react-native';
-import { MaterialBottomTabNavigationProp } from '@react-navigation/material-bottom-tabs';
 import { useTheme } from 'react-native-paper';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 
 import overlay from './overlay';
-import { TabBarSetContext } from './context/tabBarContext';
 import { Feed } from './feed';
 import { AllNotifications } from './all';
-
-type Props = {
-  navigation: MaterialBottomTabNavigationProp<{}>;
-};
 
 const initialLayout = { width: Dimensions.get('window').width };
 
@@ -20,8 +14,7 @@ const All = () => <AllNotifications />;
 
 const Mentions = () => <Feed />;
 
-export const Notifications = (props: Props) => {
-  const setTab = React.useContext(TabBarSetContext);
+export const Notifications = () => {
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
     { key: 'all', title: 'All' },
@@ -29,13 +22,6 @@ export const Notifications = (props: Props) => {
   ]);
 
   const theme = useTheme();
-
-  //TODO: this runs too often. Check how to fix it
-  React.useEffect(() => {
-    const onTabPress = () => setTab('Notifications');
-    props.navigation.addListener('tabPress', onTabPress);
-    return () => props.navigation.removeListener('tabPress', onTabPress);
-  }, [props.navigation, setTab]);
 
   const renderScene = SceneMap({
     all: All,
