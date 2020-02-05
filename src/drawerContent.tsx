@@ -1,28 +1,28 @@
-import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import {
-  DrawerItem,
-  DrawerContentScrollView,
   DrawerContentComponentProps,
   DrawerContentOptions,
+  DrawerContentScrollView,
+  DrawerItem,
 } from '@react-navigation/drawer';
+import React from 'react';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import {
-  useTheme,
   Avatar,
-  Title,
   Caption,
-  Paragraph,
   Drawer,
-  Text,
-  TouchableRipple,
+  Paragraph,
   Switch,
+  Text,
+  Title,
+  TouchableRipple,
+  useTheme,
 } from 'react-native-paper';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Animated from 'react-native-reanimated';
 
 import { PreferencesContext } from './context/preferencesContext';
 
-type Props = DrawerContentComponentProps<DrawerContentOptions>;
+type Props = DrawerContentComponentProps<DrawerNavigationProp>;
 
 export function DrawerContent(props: Props) {
   const paperTheme = useTheme();
@@ -48,13 +48,20 @@ export function DrawerContent(props: Props) {
         ]}
       >
         <View style={styles.userInfoSection}>
-          <Avatar.Image
-            source={{
-              uri:
-                'https://pbs.twimg.com/profile_images/952545910990495744/b59hSXUd_400x400.jpg',
+          <TouchableOpacity
+            style={{ marginLeft: 10 }}
+            onPress={() => {
+              props.navigation.toggleDrawer();
             }}
-            size={50}
-          />
+          >
+            <Avatar.Image
+              source={{
+                uri:
+                  'https://pbs.twimg.com/profile_images/952545910990495744/b59hSXUd_400x400.jpg',
+              }}
+              size={50}
+            />
+          </TouchableOpacity>
           <Title style={styles.title}>Dawid Urbaniak</Title>
           <Caption style={styles.caption}>@trensik</Caption>
           <View style={styles.row}>
