@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavigationNativeContainer } from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { useTheme } from 'react-native-paper';
@@ -14,10 +14,10 @@ export const RootNavigator = () => {
   const navigationTheme = theme.dark ? DarkTheme : DefaultTheme;
 
   return (
-    <NavigationNativeContainer theme={navigationTheme}>
+    <NavigationContainer theme={navigationTheme}>
       <Drawer.Navigator drawerContent={props => <DrawerContent {...props} />}>
         <Drawer.Screen name="Home" component={StackNavigator} />
       </Drawer.Navigator>
-    </NavigationNativeContainer>
+    </NavigationContainer>
   );
 };
