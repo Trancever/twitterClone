@@ -10,17 +10,19 @@ import { Feed } from './feed';
 import { Message } from './message';
 import { Notifications } from './notifications';
 import { StackNavigatorParamlist } from './types';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 const Tab = createMaterialBottomTabNavigator();
 
 type Props = {
   route: RouteProp<StackNavigatorParamlist, 'FeedList'>;
+  navigation: StackNavigationProp<any, any>;
 };
 
 export const BottomTabs = (props: Props) => {
-  const routeName = props.route.state
-    ? props.route.state.routes[props.route.state.index].name
-    : 'Feed';
+  const state = props.navigation.dangerouslyGetState();
+  const tabState = state.routes.find(x => x.name === props.route.name)?.state;
+  const routeName = tabState ? tabState.routes[tabState.index].name : 'Feed';
 
   const theme = useTheme();
   const safeArea = useSafeArea();

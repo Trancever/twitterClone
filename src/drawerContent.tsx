@@ -1,7 +1,6 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import {
   DrawerContentComponentProps,
-  DrawerContentOptions,
   DrawerContentScrollView,
   DrawerItem,
 } from '@react-navigation/drawer';
@@ -19,21 +18,15 @@ import {
   useTheme,
 } from 'react-native-paper';
 import Animated from 'react-native-reanimated';
+import { DrawerActions } from '@react-navigation/native';
 
 import { PreferencesContext } from './context/preferencesContext';
 
-type Props = DrawerContentComponentProps<DrawerNavigationProp>;
-
-export function DrawerContent(props: Props) {
+export function DrawerContent(props: DrawerContentComponentProps) {
   const paperTheme = useTheme();
   const { rtl, theme, toggleRTL, toggleTheme } = React.useContext(
     PreferencesContext
   );
-
-  const translateX = Animated.interpolate(props.progress, {
-    inputRange: [0, 0.5, 0.7, 0.8, 1],
-    outputRange: [-100, -85, -70, -45, 0],
-  });
 
   return (
     <DrawerContentScrollView {...props}>
@@ -43,7 +36,6 @@ export function DrawerContent(props: Props) {
           styles.drawerContent,
           {
             backgroundColor: paperTheme.colors.surface,
-            transform: [{ translateX }],
           },
         ]}
       >
@@ -51,7 +43,7 @@ export function DrawerContent(props: Props) {
           <TouchableOpacity
             style={{ marginLeft: 10 }}
             onPress={() => {
-              props.navigation.toggleDrawer();
+              props.navigation.dispatch(DrawerActions.toggleDrawer());
             }}
           >
             <Avatar.Image
