@@ -13,7 +13,7 @@ export const twitts: Omit<TwittProps, 'onPress'>[] = [
       '🔥 Automatically use "smart" directional curly quotes with the `quotes` CSS property! Even handles nested quotes with the <q> tag :o',
     image: 'https://pbs.twimg.com/media/EOUrCOcWAAA71rA?format=png&name=small',
     avatar:
-      'https://pbs.twimg.com/profile_images/461190672117035010/0kJ4pynr_400x400.jpeg',
+      'https://pbs.twimg.com/profile_images/1242807739681845248/HeUb7BAt_400x400.jpg',
     comments: 12,
     retweets: 36,
     hearts: 175,
@@ -42,7 +42,7 @@ export const twitts: Omit<TwittProps, 'onPress'>[] = [
     image:
       'https://static.antyweb.pl/uploads/2014/09/IPod_classic_6G_80GB_packaging-2007-09-22-1420x670.jpg',
     avatar:
-      'https://pbs.twimg.com/profile_images/1203624639538302976/h-rvrjWy_400x400.jpg',
+      'https://pbs.twimg.com/profile_images/1274435026482937858/JZmznbJO_400x400.jpg',
     comments: 23,
     retweets: 21,
     hearts: 300,
@@ -56,7 +56,7 @@ export const twitts: Omit<TwittProps, 'onPress'>[] = [
       '🔥 Automatically use "smart" directional curly quotes with the `quotes` CSS property! Even handles nested quotes with the <q> tag :o',
     image: 'https://pbs.twimg.com/media/EOUrCOcWAAA71rA?format=png&name=small',
     avatar:
-      'https://pbs.twimg.com/profile_images/461190672117035010/0kJ4pynr_400x400.jpeg',
+      'https://pbs.twimg.com/profile_images/1242807739681845248/HeUb7BAt_400x400.jpg',
     comments: 12,
     retweets: 36,
     hearts: 175,
@@ -85,7 +85,7 @@ export const twitts: Omit<TwittProps, 'onPress'>[] = [
     image:
       'https://static.antyweb.pl/uploads/2014/09/IPod_classic_6G_80GB_packaging-2007-09-22-1420x670.jpg',
     avatar:
-      'https://pbs.twimg.com/profile_images/1203624639538302976/h-rvrjWy_400x400.jpg',
+      'https://pbs.twimg.com/profile_images/1274435026482937858/JZmznbJO_400x400.jpg',
     comments: 23,
     retweets: 21,
     hearts: 300,
@@ -104,12 +104,12 @@ export const notificationTweets: Array<NotificationTwittProps> = [
       {
         name: 'Evan Bacon 🥓',
         image:
-          'https://pbs.twimg.com/profile_images/1203624639538302976/h-rvrjWy_400x400.jpg',
+          'https://pbs.twimg.com/profile_images/1274435026482937858/JZmznbJO_400x400.jpg',
       },
       {
         name: 'Leandro Favre',
         image:
-          'https://pbs.twimg.com/profile_images/1181019042557173760/a1C7MHkM_400x400.jpg',
+          'https://pbs.twimg.com/profile_images/1265688225076690945/JpshyTTJ_400x400.png',
       },
     ],
   },
@@ -134,7 +134,7 @@ export const notificationTweets: Array<NotificationTwittProps> = [
       {
         name: 'Nader Dabit',
         image:
-          'https://pbs.twimg.com/profile_images/1167093599600816129/APWfpd5O_400x400.jpg',
+          'https://pbs.twimg.com/profile_images/1268352530423205889/V6Nz7mIt_400x400.jpg',
       },
     ],
   },
@@ -147,12 +147,12 @@ export const notificationTweets: Array<NotificationTwittProps> = [
       {
         name: 'Evan Bacon 🥓',
         image:
-          'https://pbs.twimg.com/profile_images/1203624639538302976/h-rvrjWy_400x400.jpg',
+          'https://pbs.twimg.com/profile_images/1274435026482937858/JZmznbJO_400x400.jpg',
       },
       {
         name: 'Leandro Favre',
         image:
-          'https://pbs.twimg.com/profile_images/1181019042557173760/a1C7MHkM_400x400.jpg',
+          'https://pbs.twimg.com/profile_images/1265688225076690945/JpshyTTJ_400x400.png',
       },
     ],
   },
@@ -177,7 +177,7 @@ export const notificationTweets: Array<NotificationTwittProps> = [
       {
         name: 'Nader Dabit',
         image:
-          'https://pbs.twimg.com/profile_images/1167093599600816129/APWfpd5O_400x400.jpg',
+          'https://pbs.twimg.com/profile_images/1268352530423205889/V6Nz7mIt_400x400.jpg',
       },
     ],
   },
