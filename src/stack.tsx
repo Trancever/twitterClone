@@ -80,10 +80,13 @@ export const StackNavigator = () => {
       <Stack.Screen
         name="FeedList"
         component={BottomTabs}
-        options={({ route }) => {
+        options={({ route, navigation }) => {
           console.log('!@# options', { route });
-          const routeName = route.state
-            ? route.state.routes[route.state.index].name
+          const state = navigation.dangerouslyGetState();
+          const stackState = state.routes.find(x => x.name === route.name)
+            ?.state;
+          const routeName = stackState
+            ? stackState.routes[stackState.index].name
             : 'Feed';
           return { headerTitle: routeName };
         }}
