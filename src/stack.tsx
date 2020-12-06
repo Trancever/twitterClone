@@ -82,7 +82,7 @@ export const StackNavigator = () => {
         name="FeedList"
         component={BottomTabs}
         options={({ route }) => {
-          const routeName = getFocusedRouteNameFromRoute(route) ?? 'Home';
+          const routeName = getFocusedRouteNameFromRoute(route) ?? 'Feed';
           return { headerTitle: routeName };
         }}
       />
