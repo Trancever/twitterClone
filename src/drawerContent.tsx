@@ -1,9 +1,12 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import {
+  createDrawerNavigator,
+  DrawerContentScrollView,
+  DrawerItemList,
+  DrawerItem,
   DrawerContentComponentProps,
   DrawerContentOptions,
-  DrawerContentScrollView,
-  DrawerItem,
+  DrawerNavigationProp,
 } from '@react-navigation/drawer';
 import React from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
@@ -25,6 +28,8 @@ import { PreferencesContext } from './context/preferencesContext';
 type Props = DrawerContentComponentProps<DrawerNavigationProp>;
 
 export function DrawerContent(props: Props) {
+  const { navigation } = props
+  //console.log(navigation)
   const paperTheme = useTheme();
   const { rtl, theme, toggleRTL, toggleTheme } = React.useContext(
     PreferencesContext
@@ -34,6 +39,11 @@ export function DrawerContent(props: Props) {
     inputRange: [0, 0.5, 0.7, 0.8, 1],
     outputRange: [-100, -85, -70, -45, 0],
   });
+
+  const goTo = (screen: string) => {
+    console.log("drawer navigation works");
+    navigation.navigate(screen);
+  }
 
   return (
     <DrawerContentScrollView {...props}>
@@ -88,15 +98,15 @@ export function DrawerContent(props: Props) {
                 size={size}
               />
             )}
-            label="Profile"
-            onPress={() => {}}
+            label="Feed"
+            onPress={() => {goTo("Feed")}}
           />
           <DrawerItem
             icon={({ color, size }) => (
               <MaterialCommunityIcons name="tune" color={color} size={size} />
             )}
-            label="Preferences"
-            onPress={() => {}}
+            label="Notifications"
+            onPress={() => {goTo("Notifications")}}
           />
           <DrawerItem
             icon={({ color, size }) => (
@@ -106,8 +116,8 @@ export function DrawerContent(props: Props) {
                 size={size}
               />
             )}
-            label="Bookmarks"
-            onPress={() => {}}
+            label="Messages"
+            onPress={() => {goTo("Messages")}}
           />
         </Drawer.Section>
         <Drawer.Section title="Preferences">
