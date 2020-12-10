@@ -9,6 +9,7 @@ import { BottomTabs } from './bottomTabs';
 import { Details } from './details';
 import { StackNavigatorParamlist } from './types';
 
+
 const Stack = createStackNavigator<StackNavigatorParamlist>();
 
 export const StackNavigator = () => {
@@ -21,7 +22,7 @@ export const StackNavigator = () => {
       screenOptions={{
         header: ({ scene, previous, navigation }) => {
           const { options } = scene.descriptor;
-          const title =
+          const title = 
             options.headerTitle !== undefined
               ? options.headerTitle
               : options.title !== undefined
@@ -80,13 +81,6 @@ export const StackNavigator = () => {
       <Stack.Screen
         name="FeedList"
         component={BottomTabs}
-        options={({ route }) => {
-          console.log('!@# options', { route });
-          const routeName = route.state
-            ? route.state.routes[route.state.index].name
-            : 'Feed';
-          return { headerTitle: routeName };
-        }}
       />
       <Stack.Screen
         name="Details"

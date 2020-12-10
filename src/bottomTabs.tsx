@@ -10,17 +10,24 @@ import { Feed } from './feed';
 import { Message } from './message';
 import { Notifications } from './notifications';
 import { StackNavigatorParamlist } from './types';
+import type { StackNavigationProp } from '@react-navigation/stack';
+
+import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 
 const Tab = createMaterialBottomTabNavigator();
 
 type Props = {
   route: RouteProp<StackNavigatorParamlist, 'FeedList'>;
+  navigation: StackNavigationProp<{}>;
 };
 
 export const BottomTabs = (props: Props) => {
-  const routeName = props.route.state
-    ? props.route.state.routes[props.route.state.index].name
-    : 'Feed';
+  const {route, navigation} = props;
+  const routeName = getFocusedRouteNameFromRoute(route);
+  //console.log(routeName)
+  React.useLayoutEffect(() => {
+    navigation.setOptions({ headerTitle: routeName });
+  }, [navigation, route]);
 
   const theme = useTheme();
   const safeArea = useSafeArea();
